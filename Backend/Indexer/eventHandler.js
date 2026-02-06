@@ -8,6 +8,8 @@ export async function handleTransfer(from, to, value) {
   try {
     const amount = Number(ethers.formatUnits(value, 18));
 
+    if (amount < 100) return;
+
     const eventData = {
       from,
       to,
