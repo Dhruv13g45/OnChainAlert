@@ -16,6 +16,10 @@
     "ethers": "^6.16.0",
     "express": "^5.2.1",
     "mongoose": "^9.1.6",
+
     "node-telegram-bot-api": "^0.67.0"
+
+    "nodemon": "^3.1.11"
+
   }
 }

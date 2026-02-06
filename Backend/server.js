@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import connectDB from "./Database/db.js";
 import eventRoutes from "./routes/eventRoutes.routes.js";
 import errorHandler from "./middleware/errorHandler.middleware.js";
+import startIndexer from "./Indexer/indexer.js";
 
 // Load environment variables
 dotenv.config();
@@ -45,4 +46,5 @@ const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
+  startIndexer();
 });
