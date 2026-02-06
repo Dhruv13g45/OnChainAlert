@@ -32,6 +32,5 @@ async function startIndexer() {
   }
 }
 
-startIndexer();
 
 export default startIndexer;
