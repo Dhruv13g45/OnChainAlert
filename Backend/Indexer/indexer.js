@@ -1,36 +1,24 @@
-import { provider, TOKEN_ADDRESS, ABI } from "./config.js";
-import { ethers } from "ethers";
-import { handleTransfer } from "./eventHandler.js";
+import eventHandler from './eventHandler.js';
 
-async function startIndexer() {
-  console.log("⚡ Starting indexer...");
-
+export async function startIndexer() {
   try {
-    const contract = new ethers.Contract(
-      TOKEN_ADDRESS,
-      ABI,
-      provider
-    );
-
-    const block = await provider.getBlockNumber();
-
-    console.log("---------------------------------------");
-    console.log("✅ INDEXER LIVE");
-    console.log(`📡 Connected to Amoy Block: #${block}`);
-    console.log("👀 Listening for transfers...");
-    console.log("---------------------------------------");
-
+    console.log('\n═══════════════════════════════════════');
+    console.log('🔗 ONCHAIN EVENT INDEXER');
+    console.log('═══════════════════════════════════════\n');
     
-    contract.on("Transfer", (from, to, value) => {
-      console.log("💎 Transfer detected");
-      handleTransfer(from, to, value);
-    });
-
-  } catch (err) {
-    console.log("❌ Connection failed. Retrying...");
-    setTimeout(startIndexer, 2000);
+    // Initialize connection
+    await eventHandler.initialize();
+    
+    // Start listening
+    await eventHandler.start();
+    
+    console.log('\n✅ Indexer is now running!');
+    console.log('💡 Watching for blockchain events...\n');
+    
+  } catch (error) {
+    console.error('❌ Failed to start indexer:', error.message);
+    throw error;
   }
 }
 
-
-export default startIndexer;
+export { eventHandler };
